@@ -14,10 +14,14 @@
   
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-icon-180x180.png">
   <link href="assets/favicon.ico" rel="icon">
+   <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <title>Title page</title>  
 
-<link href="main.3f6952e4.css" rel="stylesheet"></head>
+<link href="static/main.3f6952e4.css" rel="stylesheet"></head>
 
 <body class="">
 <div id="site-border-left"></div>
@@ -63,53 +67,63 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <img src="assets/images/work001-01.jpg" class="img-responsive" alt="">
+        <img src="static/assets/images/work001-01.jpg" class="img-responsive" alt="">
         <div class="card-container">
           <div class="text-center">
-            <h1 class="h2">001 : Fringilla sit amet</h1>
+            <h1 class="h2">003 : Password Checker with API Integration</h1>
           </div>
-          <p>Nulla facilisi. Vivamus vestibulum, elit in scelerisque ultricies, nisl nunc pulvinar ligula, id sodales arcu sapien in nisi. Quisque libero enim, mattis non augue posuere, venenatis dapibus urna.</p>
-
-          <blockquote>
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-            <small class="pull-right">Irina Martin</small>
-          </blockquote>
+          <p>The Password Checker is a security-focused application that leverages API integration to ensure the strength and safety of user passwords. It checks passwords against various criteria, including length, complexity, and whether they've been compromised in data breaches. This project highlights my ability to integrate APIs, focus on user security, and develop applications that promote safe and secure online practices. It's a valuable tool for anyone looking to enhance their digital security and protect against unauthorized access.</p>
         </div>
       </div>
 
-      
-      
+
+
       <div class="col-md-8 col-md-offset-2 section-container-spacer">
-        <div class="row">
-          <div class="col-xs-12 col-md-6">
-            <img src="assets/images/work001-02.jpg" class="img-responsive" alt="">
-            <p>Menphis skyline</p>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <img src="assets/images/work001-03.jpg" class="img-responsive" alt="">
-            <p>Menphis skyline</p>
-          </div>
-        </div>
-      </div>
+        <body>
+          <pre><code class="python">
+      import requests
+      import hashlib
+      import re
+      import sys
 
-      <div class="col-xs-12">
-        <img src="assets/images/work001-04.jpg" class="img-responsive" alt="">
+      def get_res(query):
+          url = 'https://api.pwnedpasswords.com/range/' + query
+          res = requests.get(url)
+          if (res.status_code != 200):
+              raise RuntimeError(f"Error fetching {res.status_code}, please check your api and query code")
+
+          return res
+
+      def pwned_password(password):
+          sha1pass = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+          res = get_res(sha1pass[:5])
+          suf = re.compile(rf'{sha1pass[5:]}')
+
+          li = (i.rstrip().split(':') for i in res.text.split('\n'))
+
+          #check regex of suffix and the list
+          for code, count in li:
+              # if hit: return response
+              if (suf.fullmatch(code)):
+                  return f"your Password have been pwned for {count}"
+          return "Your Password is all good"
+
+      def main(args):
+          for i in args:
+              print(i)
+              print(pwned_password(i))
+
+      if __name__ == '__main__':
+          main(sys.argv[1:])
+
+
+        </body>
       </div>
 
     </div>
   </div>
 </div>
 
-
-<footer class="footer-container text-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <p>© UNTITLED | Website created with <a href="http://www.mashup-template.com/" title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/" title="Beautiful Free Images">Unsplash</a></p>
-      </div>
-    </div>
-  </div>
-</footer>
 
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
@@ -130,6 +144,6 @@
   ga('send', 'pageview');
 </script>
 
---> <script type="text/javascript" src="main.70a66962.js"></script></body>
+--> <script type="text/javascript" src="static/main.70a66962.js"></script></body>
 
 </html>

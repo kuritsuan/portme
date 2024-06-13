@@ -12,8 +12,12 @@
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
   
-  <link rel="apple-touch-icon" sizes="180x180" href="static/assets/apple-icon-180x180.png">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-icon-180x180.png">
+  <link href="assets/favicon.ico" rel="icon">
+   <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <title>Title page</title>  
 
@@ -24,7 +28,7 @@
 <div id="site-border-right"></div>
 <div id="site-border-top"></div>
 <div id="site-border-bottom"></div>
- <!-- Add your content of header -->
+<!-- Add your content of header -->
 <header>
   <nav class="navbar  navbar-fixed-top navbar-default">
     <div class="container">
@@ -41,34 +45,69 @@
           <li><a href="./works.html" title="">02 : Works</a></li>
           <li><a href="./about.html" title="">03 : About me</a></li>
           <li><a href="./contact.html" title="">04 : Contact</a></li>
+          <li><a href="./components.html" title="">05 : Components</a></li>
         </ul>
+
+
+          <ul class="nav navbar-nav navbar-right navbar-small visible-md visible-lg">
+            <li><a href="./index.html" title="" class="active">001</a></li>
+            <li><a href="./index.html" title="">002</a></li>
+            <li><a href="./index.html" title="">003</a></li>
+            <li><a href="./index.html" title="">004</a></li>
+            <li><a href="./index.html" title="">005</a></li>
+            <li><a href="./index.html" title="">006</a></li>
+          </ul>
 
 
       </div> 
     </div>
   </nav>
 </header>
-
 <div class="section-container">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="section-container-spacer text-center">
-            <h1 class="h2">04 : Contact me</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <img src="static/assets/images/work001-01.jpg" class="img-responsive" alt="">
+        <div class="card-container">
+          <div class="text-center">
+            <h1 class="h2">001 : PDF Merger</h1>
           </div>
-          
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-               Thank you! I will get in touch with you, shortly!
-            </div>
-
-          </div>
-         
-       </div>
+          <p>The PDF Merger is a straightforward yet powerful tool designed to combine multiple PDF documents into a single, cohesive file. This project showcases my proficiency in handling file operations and streamlining document management processes. It's particularly useful for anyone who needs to merge reports, forms, or any other PDF files efficiently, making it an essential utility for both personal and professional use.</p>
+        </div>
       </div>
+
+
+
+      <div class="col-md-8 col-md-offset-2 section-container-spacer">
+        <body>
+          <pre><code class="python">
+      import os
+      from PyPDF2 import PdfWriter, PdfMerger
+
+      merger = PdfMerger()
+      inp = list()
+
+      pdfFiles = []  # variable
+
+      directory = './pdf_files'
+      for filename in os.listdir(directory):
+          pdfFiles.append(f'{directory}/{filename}')
+
+      pdfFiles.sort()
+      pdfFiles.pop(0)
+      print(pdfFiles)
+      for pdf in pdfFiles:
+          merger.append(pdf)
+
+      with open("merged-pdf.pdf", "wb") as new_file :
+          merger.write(new_file)
+
+        </body>
+      </div>
+
     </div>
   </div>
-
+</div>
 
 
 <script>

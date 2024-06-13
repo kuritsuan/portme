@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 def adding_database_csv(dictionary):
 
-
     with open("database.csv", mode='a') as my_file:
         fieldnames = ['email', 'subject', 'message']
         csv_writer = csv.DictWriter(my_file, fieldnames=fieldnames)
@@ -21,6 +20,7 @@ def adding_database_file(dictionary):
             if (key != 'message'):
                 my_file.write(f',')
         my_file.write('\n')
+
 
 
 @app.route("/")
